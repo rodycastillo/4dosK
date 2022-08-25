@@ -1,9 +1,13 @@
+// Packages
 const express = require('express');
 const http = require('http');
 const cors = require('cors')
 const logger = require('morgan');
+// Variables
 const { DOMAIN, PORT } = require('./config/default');
+// DB
 const { connectDB } = require('./config/db');
+// Routes
 const { FormRouter } = require('./routes/Form.route');
 
 
@@ -20,6 +24,7 @@ class App {
     }
 
     Middlewares() {
+        this.app.use('/uploads', express.static('uploads'))
         this.app.use(cors());
         this.app.use(logger('dev'));
         this.app.use(express.json());
