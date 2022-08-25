@@ -25,8 +25,19 @@ const CreateForm = async (req, res) => {
 
 const GetPosts = async (req, res) => {
     try {
-        const ImagesFound = await FormModel.find();
-        res.status(200).json({ message: 'Data was found', status: true, data: ImagesFound })
+        const POSTS = await FormModel.find();
+        res.status(200).json({ message: 'Data was found', status: true, data: POSTS })
+        
+    } catch (error) {
+        return res.status(505).json({ message: error, status: false, data: '' })
+    }
+}
+
+const GetImages = async (req, res) => {
+    try {
+        let IMAGES = await FormModel.find();
+        IMAGES = IMAGES.map(item => item.image)
+        res.status(200).json({ message: 'Images was found', status: true, data: IMAGES });
         
     } catch (error) {
         return res.status(505).json({ message: error, status: false, data: '' })
@@ -35,5 +46,6 @@ const GetPosts = async (req, res) => {
 
 module.exports = {
     CreateForm,
-    GetPosts
+    GetPosts,
+    GetImages
 }
