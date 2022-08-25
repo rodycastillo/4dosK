@@ -13,7 +13,7 @@ const CreateForm = async (req, res) => {
                 names: req.body.names,
                 email: req.body.email,
                 description: req.body.description,
-                image: `${DOMAIN}uploads/${req.file.originalname}`
+                image: `${DOMAIN}${req.file.path}`
             });
             const newFormToSave = await savingForm.save();
             return res.status(201).json({ message: 'Form saved successfull', status: true, data: newFormToSave });
@@ -23,6 +23,17 @@ const CreateForm = async (req, res) => {
     }
 }
 
+const GetPosts = async (req, res) => {
+    try {
+        const ImagesFound = await FormModel.find();
+        res.status(200).json({ message: 'Data was found', status: true, data: ImagesFound })
+        
+    } catch (error) {
+        return res.status(505).json({ message: error, status: false, data: '' })
+    }
+}
+
 module.exports = {
     CreateForm,
+    GetPosts
 }
