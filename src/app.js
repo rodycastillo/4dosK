@@ -28,6 +28,7 @@ class App {
         this.app.use(cors());
         this.app.use(logger('dev'));
         this.app.use(express.json());
+        this.app.use(express.static('public'))
     }
 
     async DataBase() {
